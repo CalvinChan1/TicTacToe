@@ -36,6 +36,10 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="mealNameLabel" destination="401-wI-PTS" id="rUF-g5-PAm"/>
+                        <outlet property="nameTextField" destination="YVr-oZ-zcE" id="Dh5-7O-ffL"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
