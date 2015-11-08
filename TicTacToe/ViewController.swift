@@ -18,31 +18,49 @@ class ViewController: UIViewController, UITextFieldDelegate {
     // MARK: Actions
     
     //
-    var turn = 1 // x = 0, y = 1
-    //
-    var xTurn = false
+    var xTurn = true
     
-    var numberOfTurns = 8;
+    var numberOfTurns = 0
 
     @IBOutlet weak var button1: UIButton!
 
     @IBOutlet weak var button2: UIButton!
     
+    // Action activates when button is clicked
     @IBAction func tappedButton(sender: AnyObject) {
         
+        // current button
         let buttonTapped : UIButton = sender as! UIButton
         
+        // tag of current button
         let tagTapped = buttonTapped.tag
         
+        
+        /*
         if( buttonTapped.titleLabel?.text == "X" ) {
             buttonTapped.setTitle("O", forState: UIControlState.Normal)
         } else {
             buttonTapped.setTitle("X", forState: UIControlState.Normal)
         }
+        */
         
+        if (buttonTapped.titleLabel?.text != "X" && buttonTapped.titleLabel?.text != "O") {
+            if (xTurn) {
+                buttonTapped.setTitle("X", forState: UIControlState.Normal)
+                xTurn = false
+            }
+            else {
+                buttonTapped.setTitle("O", forState: UIControlState.Normal)
+                xTurn = true
+            }
+        }
         
-        
-        
+        /*
+        // checkWinner
+        if (numberOfTurns >= 5) {
+            // check
+        }
+        */
         
     }
   /*
