@@ -17,54 +17,54 @@ class ViewController: UIViewController, UITextFieldDelegate {
 
     // MARK: Actions
     
-    //
     var xTurn = true
     
     var numberOfTurns = 0
     
     var x = [Int: Bool]()
     var y = [Int: Bool]()
+    
+    @IBOutlet weak var winnerResult: UILabel!
 
     @IBOutlet weak var button1: UIButton!
 
     @IBOutlet weak var button2: UIButton!
-    
     
     func checkWinner() {
         // check y
         if (xTurn) {
             if (y[1] != nil) {
                 if (y[2] != nil && y[3] != nil) {
-                    print("123")
+                    winnerResult.text = "O wins"
                 }
                 else if (y[4] != nil && y[7] != nil) {
-                    print("456")
+                    winnerResult.text = "O wins"
                 }
                 else if (y[5] != nil && y[9] != nil) {
-                    //
+                    winnerResult.text = "O wins"
                 }
             }
             else if (y[3] != nil) {
                 if (y[6] != nil && y[9] != nil) {
-                    //
+                    winnerResult.text = "O wins"
                 }
                 else if (y[5] != nil && y[7] != nil) {
-                    //
+                    winnerResult.text = "O wins"
                 }
             }
             else if (y[4] != nil) {
                 if (y[5] != nil && y[6] != nil) {
-                    //
+                    winnerResult.text = "O wins"
                 }
             }
             else if (y[7] != nil) {
                 if (y[8] != nil && y[9] != nil) {
-                    //
+                    winnerResult.text = "O wins"
                 }
             }
             else if (y[2] != nil) {
                 if (y[5] != nil && y[8] != nil) {
-                    //
+                    winnerResult.text = "O wins"
                 }
             }
         }
@@ -72,36 +72,36 @@ class ViewController: UIViewController, UITextFieldDelegate {
         else {
             if (x[1] != nil) {
                 if (x[2] != nil && x[3] != nil) {
-                    //
+                    winnerResult.text = "X wins"
                 }
                 else if (x[4] != nil && x[7] != nil) {
-                    //
+                    winnerResult.text = "X wins"
                 }
                 else if (x[5] != nil && x[9] != nil) {
-                    //
+                    winnerResult.text = "X wins"
                 }
             }
             else if (x[3] != nil) {
                 if (x[6] != nil && x[9] != nil) {
-                    //
+                    winnerResult.text = "X wins"
                 }
                 else if (x[5] != nil && x[7] != nil) {
-                    //
+                    winnerResult.text = "X wins"
                 }
             }
             else if (x[4] != nil) {
                 if (x[5] != nil && x[6] != nil) {
-                    //
+                    winnerResult.text = "X wins"
                 }
             }
             else if (x[7] != nil) {
                 if (x[8] != nil && x[9] != nil) {
-                    //
+                    winnerResult.text = "X wins"
                 }
             }
             else if (x[2] != nil) {
                 if (x[5] != nil && x[8] != nil) {
-                    //
+                    winnerResult.text = "X wins"
                 }
             }
         }
@@ -122,16 +122,13 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 buttonTapped.setTitle("X", forState: UIControlState.Normal)
                 x[tagTapped] = true
                 xTurn = false
-                print(tagTapped)
             }
             else {
                 buttonTapped.setTitle("O", forState: UIControlState.Normal)
                 y[tagTapped] = true
                 xTurn = true
-                print(tagTapped)
             }
             numberOfTurns += 1
-            print("number of turns: \(numberOfTurns)")
             checkWinner()
         }
 
