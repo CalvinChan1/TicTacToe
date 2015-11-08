@@ -21,6 +21,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
     var xTurn = true
     
     var numberOfTurns = 0
+    
+    
+    var x: [Int] = []
+    var y: [Int] = []
 
     @IBOutlet weak var button1: UIButton!
 
@@ -36,37 +40,62 @@ class ViewController: UIViewController, UITextFieldDelegate {
         let tagTapped = buttonTapped.tag
         
         
-        /*
-        if( buttonTapped.titleLabel?.text == "X" ) {
-            buttonTapped.setTitle("O", forState: UIControlState.Normal)
-        } else {
-            buttonTapped.setTitle("X", forState: UIControlState.Normal)
-        }
-        */
         
         if (buttonTapped.titleLabel?.text != "X" && buttonTapped.titleLabel?.text != "O") {
             if (xTurn) {
                 buttonTapped.setTitle("X", forState: UIControlState.Normal)
+                x.append(tagTapped)
                 xTurn = false
+                print(tagTapped)
             }
             else {
                 buttonTapped.setTitle("O", forState: UIControlState.Normal)
+                y.append(tagTapped)
                 xTurn = true
+                print(tagTapped)
             }
         }
+
+        var wintypes = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 4, 7], [2, 5, 8], [3, 6, 9], [1, 5, 9], [3, 5, 7]]
         
-        /*
+        
         // checkWinner
         if (numberOfTurns >= 5) {
             // check
+            // for each array in wintypes, check the first elem
+            // with each sorted list. If it exists then check the rest of the list to see if all 3 numbers match
+            // if all three numbers match, then print("\(player) wins!) and end the game
+            // else move on to the rest of the array if it doesnt
+            
+            
+            // y just went
+            if (xTurn) {
+                y.sortInPlace()
+                
+                
+            }
+            // x just went
+            else {
+                x.sortInPlace()
+                
+                
+            }
         }
-        */
         
     }
   /*
     1 2 3
     4 5 6
     7 6 9
+    
+    /*
+    if( buttonTapped.titleLabel?.text == "X" ) {
+    buttonTapped.setTitle("O", forState: UIControlState.Normal)
+    } else {
+    buttonTapped.setTitle("X", forState: UIControlState.Normal)
+    }
+    */
+    
     
     
     (1, 1) (2, 1) (3, 1)
