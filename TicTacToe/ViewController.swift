@@ -17,51 +17,35 @@ class ViewController: UIViewController, UITextFieldDelegate {
 
     // MARK: Actions
     
-    // TicTacToe Logic
-    
+    //
+    var turn = 1 // x = 0, y = 1
+    //
     var xTurn = false
     
-    var numberOfTurns = 0
-    
-    // checks for the winner
-    func checkWinner() {
-        if (numberOfTurns >= 5) {
-            
-        }
-    }
+    var numberOfTurns = 8;
+
+    @IBOutlet weak var button1: UIButton!
+
+    @IBOutlet weak var button2: UIButton!
     
     @IBAction func tappedButton(sender: AnyObject) {
         
-        let buttonTapped : UIButton = sender as UIButton
+        let buttonTapped : UIButton = sender as! UIButton
         
         let tagTapped = buttonTapped.tag
         
-        if (buttonTapped.titleLabel?.text != "O" || buttonTapped.titleLabel?.text != "X") {
-            numberOfTurns += 1
-            if (xTurn) {
-                buttonTapped.setTitle("X", forState: UIControlState.Normal)
-                xTurn = false
-                
-            }
-            else {
-                buttonTapped.setTitle("O", forState: UIControlState.Normal)
-                xTurn = true
-            }
+        if( buttonTapped.titleLabel?.text == "X" ) {
+            buttonTapped.setTitle("O", forState: UIControlState.Normal)
+        } else {
+            buttonTapped.setTitle("X", forState: UIControlState.Normal)
         }
+        
+        
+        
+        
+        
     }
-    
   /*
-    
-    
-    if ( buttonTapped.titleLabel?.text == "X" ) {
-    buttonTapped.setTitle("O", forState: UIControlState.Normal)
-    }
-    else {
-    buttonTapped.setTitle("X", forState: UIControlState.Normal)
-    }
-    
-    
-
     1 2 3
     4 5 6
     7 6 9
@@ -71,13 +55,5 @@ class ViewController: UIViewController, UITextFieldDelegate {
     (1, 2) (2, 2) (3, 2)
     (1, 3) (2, 3) (3, 3) */
 }
-
-
-
-
-
-
-
-
 
     

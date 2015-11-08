@@ -156,6 +156,8 @@
 		272AAB4B1BED7EBA00BB8AC5 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftMigration = 0710;
+				LastSwiftUpdateCheck = 0710;
 				LastUpgradeCheck = 0620;
 				ORGANIZATIONNAME = "Lucy&Calvin";
 				TargetAttributes = {
@@ -407,6 +409,7 @@
 				272AAB741BED7EBA00BB8AC5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		272AAB751BED7EBA00BB8AC5 /* Build configuration list for PBXNativeTarget "TicTacToeTests" */ = {
 			isa = XCConfigurationList;
@@ -415,6 +418,7 @@
 				272AAB771BED7EBA00BB8AC5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
