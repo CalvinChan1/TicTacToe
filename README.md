@@ -17,7 +17,7 @@ Within `/loyalty/jinja/default/merchant_base.jinja`:
 </script>
 ```
 
-This starting tag loads snowplow.js. 
+This starting tag loads `snowplow.js`. 
 
 We have a local copy of sp.js within `loyalty/assets/js/lib` that you should reference (`{{ ASSET_URL }}` in the tag), rather than the hosted by Snowplow.
 
@@ -25,7 +25,7 @@ We have a local copy of sp.js within `loyalty/assets/js/lib` that you should ref
 
 #### Arguments to `window.snowplow()` for starting a tracker:
 
-1. "newTracker" tells snowplow you'll be creating a new tracker
+1. "newTracker" tells Snowplow you'll be creating a new tracker
 2. "cf" is the name of the tracker
 3. `{{ SNOWPLOW_COLLECTOR_ENDPOINT }}` is an environment variable specified in `stack.sh`, so if you'd can point the tracker to a different collector based on that. 
 * Endpoint URIs: 
