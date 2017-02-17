@@ -17,7 +17,9 @@ Within `/loyalty/jinja/default/merchant_base.jinja`:
 </script>
 ```
 
-The starting tag loads snowplow.js. We have a local copy of sp.js within `loyalty/assets/js/lib` that you should reference (`{{ ASSET_URL }}` in the tag), rather than the `"//d1fc8wv8zag5ca.cloudfront.net/2.7.0/sp.js"` version hosted by Snowplow.
+This starting tag loads snowplow.js. 
+
+We have a local copy of sp.js within `loyalty/assets/js/lib` that you should reference (`{{ ASSET_URL }}` in the tag), rather than the hosted by Snowplow.
 
 `window.snowplow()` is the core function you'll be calling to track events and to start a new tracker.
 
