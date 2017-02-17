@@ -1,4 +1,4 @@
-## Guide to Tracking Events using the JS tracker (FiveStars specific tips included!)
+## Guide to Tracking Events using the JS tracker
 Docs on tracking events: https://github.com/snowplow/snowplow/wiki/trackers
 
 
@@ -22,16 +22,16 @@ The starting tag loads snowplow.js. We have a local copy of sp.js within `loyalt
 `window.snowplow()` is the core function you'll be calling to track events and to start a new tracker.
 
 Arguments to `window.snowplow()` for starting a tracker:
-	1. "newTracker" tells snowplow you'll be creating a new tracker
-	2. "cf" is the name of the tracker
-	3. `{{ SNOWPLOW_COLLECTOR_ENDPOINT }}` is an environment variable specified in `stack.sh`, so if you'd can point the tracker to a different collector based on that. 
-		* Endpoint URIs: 
-			* Dev: "collector.sp.awesomestartup.com"
-			* Staging: "collector.sp.nerfstars.com"
-	4. Lastly, this json block is the argmap. This is what the enricher looks at to determine how to enrich your data. 
-		* In our case, we set appId as "merchant_web", platform to "web", and discoverRootDomain to "true" which automatically discovers and sets the configCookieDomain value to the root domain. 
-		* There are tons of parameters you can configure, but be wary that turning on some parameters can cause your data to have tons of fields and thus, tons of columns. Especially `performanceTiming`.
-		* Check out: https://github.com/snowplow/snowplow/wiki/1-General-parameters-for-the-Javascript-tracker#initialisation for more configuration parameters and info about each one.
+1. "newTracker" tells snowplow you'll be creating a new tracker
+2. "cf" is the name of the tracker
+3. `{{ SNOWPLOW_COLLECTOR_ENDPOINT }}` is an environment variable specified in `stack.sh`, so if you'd can point the tracker to a different collector based on that. 
+* Endpoint URIs: 
+	* Dev: "collector.sp.awesomestartup.com"
+	* Staging: "collector.sp.nerfstars.com"
+4. Lastly, this json block is the argmap. This is what the enricher looks at to determine how to enrich your data. 
+	* In our case, we set appId as "merchant_web", platform to "web", and discoverRootDomain to "true" which automatically discovers and sets the configCookieDomain value to the root domain. 
+	* There are tons of parameters you can configure, but be wary that turning on some parameters can cause your data to have tons of fields and thus, tons of columns. Especially `performanceTiming`.
+	* Check out: https://github.com/snowplow/snowplow/wiki/1-General-parameters-for-the-Javascript-tracker#initialisation for more configuration parameters and info about each one.
 
 
 2. Tracking events:
