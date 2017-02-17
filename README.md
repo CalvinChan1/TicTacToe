@@ -2,7 +2,7 @@
 Docs on tracking events: https://github.com/snowplow/snowplow/wiki/trackers
 
 
-# Instantiate the tracker.
+### Instantiate the tracker.
 
 Within `/loyalty/jinja/default/merchant_base.jinja`:
 ```
@@ -35,7 +35,7 @@ Arguments to `window.snowplow()` for starting a tracker:
 	* Check out: https://github.com/snowplow/snowplow/wiki/1-General-parameters-for-the-Javascript-tracker#initialisation for more configuration parameters and info about each one.
 
 
-# Tracking events:
+### Tracking events:
 Docs on event tracking: https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker
 
 Built-In Events:
@@ -64,7 +64,7 @@ Tracking is fairly simple, and very similar to how Mixpanel tracking works. Wher
 For the most part, you'll likely be using self-describing events.
 
 
-# Self-describing JSONs
+### Self-describing JSONs
 Docs on Json Schemas: http://json-schema.org/
 
 ```
@@ -93,7 +93,7 @@ The main components to this are:
 	* This is where you specify what data you'd like to pass, this is what gets enforced/validated within the schema.
 
 
-# Iglu schemas:
+### Iglu schemas:
 Docs on Iglu: https://github.com/snowplow/iglu/wiki/Iglu-technical-documentation
 
 ```
@@ -137,7 +137,7 @@ Within the data above, we saw there were two fields, "event_type" and "event_nam
 This covers the majority of what how you'd use Iglu schemas. Check the docs for more details.
 
 
-# Cloudwatch
+### Cloudwatch
 
 How do I check whether or not my data is enriched or bad? And where does all this data end up?
 
@@ -151,7 +151,7 @@ For debugging purposes, see `/analytics-pipeline/lambda-td/lambda_td.py`. Very h
 
 When you've got a bunch of enriched events, you can view them in Treasure Data, where each field is a column and each event is a new row!
 
-# Other Notes
+### Other Notes
 
 Feel free to ping Calvin when this isn't sufficient.
 
