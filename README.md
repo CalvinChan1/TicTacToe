@@ -25,20 +25,20 @@ We have a local copy of sp.js within `loyalty/assets/js/lib` that you should ref
 
 #### Arguments to `window.snowplow()` for starting a tracker:
 
-1. "newTracker" tells Snowplow you'll be creating a new tracker
-2. "cf" is the name of the tracker
+1. `newTracker` tells Snowplow you'll be creating a new tracker
+2. `cf` is the name of the tracker
 3. `{{ SNOWPLOW_COLLECTOR_ENDPOINT }}` is an environment variable specified in `stack.sh`, so if you'd can point the tracker to a different collector based on that. 
-* Endpoint URIs: 
-	* Dev: "collector.sp.awesomestartup.com"
-	* Staging: "collector.sp.nerfstars.com"
+* Endpoint URI: 
+	* Dev: `collector.sp.awesomestartup.com`
+	* Staging: `collector.sp.nerfstars.com`
 4. Lastly, this json block is the argmap. This is what the enricher looks at to determine how to enrich your data. 
-	* In our case, we set appId as "merchant_web", platform to "web", and discoverRootDomain to "true" which automatically discovers and sets the configCookieDomain value to the root domain. 
+	* In our case, we set `appId` as `merchant_web`, `platform` to `web`, and `discoverRootDomain` to `true` which automatically discovers and sets the configCookieDomain value to the root domain. 
 	* There are tons of parameters you can configure, but be wary that turning on some parameters can cause your data to have tons of fields and thus, tons of columns. Especially `performanceTiming`.
 	* Check out: https://github.com/snowplow/snowplow/wiki/1-General-parameters-for-the-Javascript-tracker#initialisation for more configuration parameters and info about each one.
 
 
 ### Tracking events:
-Docs on event tracking: https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker
+Docs: https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker
 
 #### Built-In Events:
 ```javascript
@@ -69,7 +69,7 @@ For the most part, you'll likely be using self-describing events.
 
 
 ### Self-describing JSONs
-Docs on Json Schemas: http://json-schema.org/
+Docs: http://json-schema.org/
 
 ```javascript
 pageAnalyticsService.prototype.schema = function(eventName) {
@@ -92,13 +92,14 @@ This is what `this.schema(eventName)` returns.
 The main components to this are:
 * Schema
 	* The schema is where the self-describing json gets validated in iglu.
-	* Eg: this particular schema lives in `/analytics-pipeline/iglu/com.fivestars.iglu/event_base/jsonschema/1-0-0`
+	* E.g.: this particular schema lives in `/analytics-pipeline/iglu/com.fivestars.iglu/event_base/jsonschema/1-0-0`
 * Data
 	* This is where you specify what data you'd like to pass, this is what gets enforced/validated within the schema.
 
 
 ### Iglu schemas:
 Docs on Iglu: https://github.com/snowplow/iglu/wiki/Iglu-technical-documentation
+Docs on JSON-schemas: http://json-schema.org/
 
 ```javascript
 {
@@ -132,11 +133,11 @@ Every time you create a new custom context/schema, you'll need a new Iglu schema
 
 This is where we enforce what ends up in the "enriched"/good vs "bad" kinesis stream, everything must be followed or it ends up in the bad stream.
 
-Eg: "event_type" has its type enforced, and what regex it follows (alphanumeric and underscores only, no uppercase or cap).
+E.g.: `event_type` has its type enforced, and what regex it follows (alphanumeric and underscores only, no uppercase or cap).
 
-Within the data above, we saw there were two fields, "event_type" and "event_name", which are required and must be included in the data. Anything else is optional (like "event_timestamp").
+Within the data above, we saw there were two fields, `event_type` and `event_name`, which are required and must be included in the data. Anything else is optional (like `event_timestamp`).
 
-"self" is what determines what your schema url within your data will be, eg: "iglu:com.fivestars.iglu/event_base/jsonschema/1-0-0".
+`self` is what determines what your schema url within your data will be. E.g.: `iglu:com.fivestars.iglu/event_base/jsonschema/1-0-0`.
 
 This covers the majority of what how you'd use Iglu schemas. Check the docs for more details.
 
