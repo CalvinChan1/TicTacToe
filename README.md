@@ -43,6 +43,7 @@ Docs on event tracking: https://github.com/snowplow/snowplow/wiki/2-Specific-eve
 window.snowplow('trackPageView', eventName, [this.schema(eventName), this.uids_context()]);
 ```
 Arguments (check docs for more):
+
 1. Event kind ("page_view")
 2. Event name
 3. Custom contexts, where you attach one or more self-describing jsons to add in extra context to the data (validated by iglu as well)
@@ -55,6 +56,7 @@ window.snowplow('trackSelfDescribingEvent', this.schema(eventName), [
 ]);
 ```
 Arguments (check docs for more):
+
 1. Kind of event ("unstruct_event"/self-describing event)
 2. Self-describing json, where you store the data pertaining to this event
 3. Custom contexts, where you attach one or more self-describing jsons to add in extra context to the data (validated by iglu as well)
