@@ -46,7 +46,7 @@ window.snowplow('trackPageView', eventName, [this.schema(eventName), this.uids_c
 ```
 Arguments (check docs for more):
 
-1. Event kind ("page_view")
+1. Event kind (`page_view`)
 2. Event name
 3. Custom contexts, where you attach one or more self-describing jsons to add in extra context to the data (validated by iglu as well)
 
@@ -59,7 +59,7 @@ window.snowplow('trackSelfDescribingEvent', this.schema(eventName), [
 ```
 Arguments (check docs for more):
 
-1. Kind of event ("unstruct_event"/self-describing event)
+1. Kind of event (`unstruct_event`/self-describing event)
 2. Self-describing json, where you store the data pertaining to this event
 3. Custom contexts, where you attach one or more self-describing jsons to add in extra context to the data (validated by iglu as well)
 
@@ -131,7 +131,7 @@ Docs on JSON-schemas: http://json-schema.org/
 
 Every time you create a new custom context/schema, you'll need a new Iglu schema that matches and enforces the data.
 
-This is where we enforce what ends up in the "enriched"/good vs "bad" kinesis stream, everything must be followed or it ends up in the bad stream.
+This is where we enforce what ends up in the `enriched` vs `bad` kinesis stream, everything must be followed or it ends up in the bad stream.
 
 E.g.: `event_type` has its type enforced, and what regex it follows (alphanumeric and underscores only, no uppercase or cap).
 
@@ -148,7 +148,7 @@ How do I check whether or not my data is enriched or bad? And where does all thi
 
 Check out the Cloudwatch Logs. Depending on where you point the collector endpoint you'll need to check different logs. (fivestarsdev vs. nerfstars vs. fivestarsprod)
 
-Using nerfstars as an example, the collector + enricher live in "snowplow-nerfstars", whereas the enriched + bad streams live in "/aws/lambda/nerfstars-sp-(enriched/bad)".
+Using nerfstars as an example, the collector and enricher logs to `snowplow-nerfstars`, whereas the enriched and bad streams log to `/aws/lambda/nerfstars-sp-(enriched/bad)`.
 
 You'll be able to see the events streaming in, and what stream they end up in if you're looking at the collector/enricher.
 
