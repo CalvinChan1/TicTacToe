@@ -39,7 +39,7 @@ The starting tag loads snowplow.js. We have a local copy of sp.js within `loyalt
 Docs on event tracking: https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker
 
 #### Built-In Events:
-```
+```javascript
 window.snowplow('trackPageView', eventName, [this.schema(eventName), this.uids_context()]);
 ```
 Arguments (check docs for more):
@@ -48,7 +48,7 @@ Arguments (check docs for more):
 3. Custom contexts, where you attach one or more self-describing jsons to add in extra context to the data (validated by iglu as well)
 
 #### Self-Describing Events:
-```
+```javascript
 window.snowplow('trackSelfDescribingEvent', this.schema(eventName), [
 	this.uids_context(),
 	this.page_title_context()
@@ -67,7 +67,7 @@ For the most part, you'll likely be using self-describing events.
 ### Self-describing JSONs
 Docs on Json Schemas: http://json-schema.org/
 
-```
+```javascript
 pageAnalyticsService.prototype.schema = function(eventName) {
   var event_base_json = {
     schema: 'iglu:com.fivestars.iglu/event_base/jsonschema/1-0-0',
@@ -96,7 +96,7 @@ The main components to this are:
 ### Iglu schemas:
 Docs on Iglu: https://github.com/snowplow/iglu/wiki/Iglu-technical-documentation
 
-```
+```javascript
 {
     "$schema" : "http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/schema/jsonschema/1-0-0#",
     "self" : {
