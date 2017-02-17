@@ -21,7 +21,7 @@ The starting tag loads snowplow.js. We have a local copy of sp.js within `loyalt
 
 `window.snowplow()` is the core function you'll be calling to track events and to start a new tracker.
 
-Arguments to `window.snowplow()` for starting a tracker:
+#### Arguments to `window.snowplow()` for starting a tracker:
 
 1. "newTracker" tells snowplow you'll be creating a new tracker
 2. "cf" is the name of the tracker
@@ -38,7 +38,7 @@ Arguments to `window.snowplow()` for starting a tracker:
 ### Tracking events:
 Docs on event tracking: https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker
 
-Built-In Events:
+#### Built-In Events:
 ```
 window.snowplow('trackPageView', eventName, [this.schema(eventName), this.uids_context()]);
 ```
@@ -47,7 +47,7 @@ Arguments (check docs for more):
 2. Event name
 3. Custom contexts, where you attach one or more self-describing jsons to add in extra context to the data (validated by iglu as well)
 
-Self-Describing Events:
+#### Self-Describing Events:
 ```
 window.snowplow('trackSelfDescribingEvent', this.schema(eventName), [
 	this.uids_context(),
