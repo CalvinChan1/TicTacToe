@@ -19,7 +19,7 @@ Within `/loyalty/jinja/default/merchant_base.jinja`:
 
 This starting tag loads `snowplow.js`. 
 
-We have a local copy of sp.js within `loyalty/assets/js/lib` that you should reference (`{{ ASSET_URL }}` in the tag), rather than the hosted by Snowplow.
+We have a local copy of sp.js within `loyalty/assets/js/lib` that you should reference (`{{ ASSET_URL }}` in the tag), rather than the one hosted by Snowplow.
 
 `window.snowplow()` is the core function you'll be calling to track events and to start a new tracker.
 
@@ -32,7 +32,7 @@ We have a local copy of sp.js within `loyalty/assets/js/lib` that you should ref
 	* Dev: `collector.sp.awesomestartup.com`
 	* Staging: `collector.sp.nerfstars.com`
 4. Lastly, this json block is the argmap. This is what the enricher looks at to determine how to enrich your data. 
-	* In our case, we set `appId` as `merchant_web`, `platform` to `web`, and `discoverRootDomain` to `true` which automatically discovers and sets the configCookieDomain value to the root domain. 
+	* In this case, we set `appId` as `merchant_web`, `platform` to `web`, and `discoverRootDomain` to `true` which automatically discovers and sets the configCookieDomain value to the root domain. 
 	* There are tons of parameters you can configure, but be wary that turning on some parameters can cause your data to have tons of fields and thus, tons of columns. Especially `performanceTiming`.
 	* Check out: https://github.com/snowplow/snowplow/wiki/1-General-parameters-for-the-Javascript-tracker#initialisation for more configuration parameters and info about each one.
 
@@ -44,7 +44,7 @@ Docs: https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-t
 ```javascript
 window.snowplow('trackPageView', eventName, [this.schema(eventName), this.uids_context()]);
 ```
-Arguments (check docs for more):
+##### Arguments (check docs for more):
 
 1. Event kind (`page_view`)
 2. Event name
@@ -57,7 +57,7 @@ window.snowplow('trackSelfDescribingEvent', this.schema(eventName), [
 	this.page_title_context()
 ]);
 ```
-Arguments (check docs for more):
+##### Arguments (check docs for more):
 
 1. Kind of event (`unstruct_event`/self-describing event)
 2. Self-describing json, where you store the data pertaining to this event
@@ -89,12 +89,12 @@ pageAnalyticsService.prototype.schema = function(eventName) {
 
 This is what `this.schema(eventName)` returns.
 
-The main components to this are:
+##### The main components to this are:
 * Schema
-	* The schema is where the self-describing json gets validated in iglu.
-	* E.g.: this particular schema lives in `/analytics-pipeline/iglu/com.fivestars.iglu/event_base/jsonschema/1-0-0`
+	* The schema is where the self-describing json gets validated with iglu.
+	* This particular schema lives in `/analytics-pipeline/iglu/com.fivestars.iglu/event_base/jsonschema/1-0-0`
 * Data
-	* This is where you specify what data you'd like to pass, this is what gets enforced/validated within the schema.
+	* This is where you specify what data you'd like to pass. This is what gets enforced/validated within the schema.
 
 
 ### Iglu schemas:
@@ -139,7 +139,7 @@ Within the data above, we saw there were two fields, `event_type` and `event_nam
 
 `self` is what determines what your schema url within your data will be. E.g.: `iglu:com.fivestars.iglu/event_base/jsonschema/1-0-0`.
 
-This covers the majority of what how you'd use Iglu schemas. Check the docs for more details.
+This covers the majority of what you'd need for Iglu schemas. Check the docs for more details.
 
 
 ### Cloudwatch
@@ -162,7 +162,5 @@ Feel free to ping Calvin when this isn't sufficient.
 
 PR: https://github.com/fivestars/server/pull/360
 
-Other clients (Android, Python, etc.) do not include as many events as JS. 
-
-The setup is also different from the JS tracker, you'll need to the docs.
+Other clients (Android, Python, etc.) do not include as many events as JS and their setup is different. Refer to the docs for more.
 
