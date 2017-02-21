@@ -25,8 +25,8 @@ Like built-in events, each platform has a different way of implementing these ev
 
 ##### Arguments:
 
-* (Required) Self-describing event json, where you specify the data pertaining to this event. You'll need to add a new schema onto Iglu every time you create a new self-describing event type.
-* (Optional) Custom contexts, where you can attach one or more self-describing jsons to a list. As the name suggests, you'll be adding context to the data. This is validated by Iglu as well, you'll need a new Iglu schema any time you create a new type of context.
+* (Required) Self-describing event JSON, where you specify the data pertaining to this event. You'll need to add a new schema onto Iglu every time you create a new self-describing event type.
+* (Optional) Custom contexts, where you can attach one or more self-describing JSONs to a list. As the name suggests, you'll be adding context to the data. This is validated by Iglu as well, you'll need a new Iglu schema any time you create a new type of context.
 
 Tracking is fairly simple, and very similar to how Mixpanel tracking works. 
 
@@ -39,7 +39,7 @@ Self-describing JSONs are where you'd add in data pertaining to a self-describin
 
 ##### The main components to this are:
 * Schema
-  * The schema is the URI where the self-describing json/custom context gets validated with Iglu.
+  * The schema is the URI where the self-describing JSON/custom context gets validated with Iglu.
   * E.g.: `/analytics-pipeline/iglu/com.fivestars.iglu/event_base/jsonschema/1-0-0`
 * Data
   * This is where you specify what data you'd like to pass. This is what gets enforced/validated within the Iglu schema (which is what you specify).
