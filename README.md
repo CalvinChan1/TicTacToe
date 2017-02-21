@@ -9,7 +9,7 @@ There are trackers for Javascript, Python, Android, and many others. Check docs 
   * Dev: `collector.sp.awesomestartup.com`
   * Staging: `collector.sp.nerfstars.com`
 
-If you're using the Javascript tracker, use version 2.7.0 or higher. Self-describing events are not supported in earlier versions.
+If you're using the Javascript tracker, use version 2.7.0 or higher. For Python, use version 0.8.0 or higher. Self-describing events are not supported in earlier versions.
 
 ### Tracking events:
 
@@ -107,3 +107,4 @@ When you've got a bunch of enriched events, you can view them in Treasure Data, 
 Feel free to ping Calvin when this isn't sufficient.
 
 Check out PR: https://github.com/fivestars/server/pull/360
+
