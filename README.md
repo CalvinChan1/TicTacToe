@@ -1,105 +1,56 @@
 ## Guide to Tracking Events using the JS tracker
 Docs on tracking events: https://github.com/snowplow/snowplow/wiki/trackers
 
-
 ### Instantiate the tracker.
 
-Within `/loyalty/jinja/default/merchant_base.jinja`:
-```javascript
-<script type="text/javascript">
-  ;(function(p,l,o,w,i,n,g){if(!p[i]){p.GlobalSnowplowNamespace=p.GlobalSnowplowNamespace||[];p.GlobalSnowplowNamespace.push(i);p[i]=function(){(p[i].q=p[i].q||[]).push(arguments)};p[i].q=p[i].q||[];n=l.createElement(o);g=l.getElementsByTagName(o)[0];n.async=1;n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"script","{{ ASSET_URL }}","snowplow"));
+There are trackers for Javascript, Python, Android, and many others. Check docs for specific tracker setup.
 
-    window.snowplow("newTracker", "cf", "{{ SNOWPLOW_COLLECTOR_ENDPOINT }}", {
-      appId: "merchant_web",
-      platform: "web",
-      discoverRootDomain: true,
-    });
-</script>
-```
+* Collector Endpoint URI: 
+  * Dev: `collector.sp.awesomestartup.com`
+  * Staging: `collector.sp.nerfstars.com`
 
-This starting tag loads `snowplow.js`. 
-
-We have a local copy of sp.js within `loyalty/assets/js/lib` that you should reference (`{{ ASSET_URL }}` in the tag), rather than the one hosted by Snowplow.
-
-`window.snowplow()` is the core function you'll be calling to track events and to start a new tracker.
-
-#### Arguments to `window.snowplow()` for starting a tracker:
-
-1. `newTracker` tells Snowplow you'll be creating a new tracker
-2. `cf` is the name of the tracker
-3. `{{ SNOWPLOW_COLLECTOR_ENDPOINT }}` is an environment variable specified in `stack.sh`, so if you'd can point the tracker to a different collector based on that. 
-* Endpoint URI: 
-	* Dev: `collector.sp.awesomestartup.com`
-	* Staging: `collector.sp.nerfstars.com`
-4. Lastly, this json block is the argmap. This is what the enricher looks at to determine how to enrich your data. 
-	* In this case, we set `appId` as `merchant_web`, `platform` to `web`, and `discoverRootDomain` to `true` which automatically discovers and sets the configCookieDomain value to the root domain. 
-	* There are tons of parameters you can configure, but be wary that turning on some parameters can cause your data to have tons of fields and thus, tons of columns. Especially `performanceTiming`.
-	* Check out: https://github.com/snowplow/snowplow/wiki/1-General-parameters-for-the-Javascript-tracker#initialisation for more configuration parameters and info about each one.
-
+If you're using the Javascript tracker, use version 2.7.0 or higher. Self-describing events are not supported in earlier versions.
 
 ### Tracking events:
-Docs: https://github.com/snowplow/snowplow/wiki/2-Specific-event-tracking-with-the-Javascript-tracker
 
-#### Built-In Events:
-```javascript
-window.snowplow('trackPageView', eventName, [this.schema(eventName), this.uids_context()]);
-```
-##### Arguments (check docs for more):
+#### Built-in Events:
 
-1. Event kind (`page_view`)
-2. Event name
-3. Custom contexts, where you attach one or more self-describing jsons to add in extra context to the data (validated by iglu as well)
+Every tracker for each platform has different support for built-in events, check docs for more.
 
 #### Self-Describing Events:
-```javascript
-window.snowplow('trackSelfDescribingEvent', this.schema(eventName), [
-	this.uids_context(),
-	this.page_title_context()
-]);
-```
-##### Arguments (check docs for more):
 
-1. Kind of event (`unstruct_event`/self-describing event)
-2. Self-describing json, where you store the data pertaining to this event
-3. Custom contexts, where you attach one or more self-describing jsons to add in extra context to the data (validated by iglu as well)
+Like built-in events, each platform has a different way of implementing these events, check the docs.
 
-Tracking is fairly simple, and very similar to how Mixpanel tracking works. Wherever you'd like to track an event is where you'd add this line of code.
+##### Arguments:
+
+* Self-describing event json, where you store the data pertaining to this event. You'll need to add a new schema onto iglu every time you create a new self-describing event type. 
+* Custom contexts, where you attach one or more self-describing jsons to a list. As the name suggests, you'll be adding context to the data. This is validated by iglu as well, you'll need a new iglu schema any time you create a new type of context.
+
+Tracking is fairly simple, and very similar to how Mixpanel tracking works. 
 
 For the most part, you'll likely be using self-describing events.
 
 
 ### Self-describing JSONs
-Docs: http://json-schema.org/
 
-```javascript
-pageAnalyticsService.prototype.schema = function(eventName) {
-  var event_base_json = {
-    schema: 'iglu:com.fivestars.iglu/event_base/jsonschema/1-0-0',
-    data: {
-      event_type: 'merchant_client',
-      event_name: eventName.replace(/\s+/g, '_')
-                           .replace(/\+/g, 'and')
-                           .replace(/\=/g, '_equals_').toLowerCase(),
-      additionalProps: this.eventProperties
-    }
-  };
-  return event_base_json;
-}
-```
-
-This is what `this.schema(eventName)` returns.
+Self-describing JSONs are where you'd add in data pertaining to a self-describing event, or a custom context.
 
 ##### The main components to this are:
 * Schema
-	* The schema is where the self-describing json gets validated with iglu.
-	* This particular schema lives in `/analytics-pipeline/iglu/com.fivestars.iglu/event_base/jsonschema/1-0-0`
+  * The schema is the URI where the self-describing json/custom context gets validated with iglu.
+  * E.g.: `/analytics-pipeline/iglu/com.fivestars.iglu/event_base/jsonschema/1-0-0`
 * Data
-	* This is where you specify what data you'd like to pass. This is what gets enforced/validated within the schema.
+  * This is where you specify what data you'd like to pass. This is what gets enforced/validated within the iglu schema (which is what you specify).
 
 
 ### Iglu schemas:
+
 Docs on Iglu: https://github.com/snowplow/iglu/wiki/Iglu-technical-documentation
 Docs on JSON-schemas: http://json-schema.org/
+
+You can find and create new schemas within the `analytics-pipeline` repo. Every time you create a new schema, you'll need to rebuild via command: `./scripts/build.py --aws_profile=production --environment=staging`
+
+Every time you create a new custom context/schema for self-describing JSON, you'll need a new Iglu schema that matches and enforces the data. This is where we enforce what ends up in the `enriched` vs `bad` kinesis stream, everything must be followed or it ends up in the bad stream.
 
 ```javascript
 {
@@ -129,13 +80,7 @@ Docs on JSON-schemas: http://json-schema.org/
 }
 ```
 
-Every time you create a new custom context/schema, you'll need a new Iglu schema that matches and enforces the data.
-
-This is where we enforce what ends up in the `enriched` vs `bad` kinesis stream, everything must be followed or it ends up in the bad stream.
-
-E.g.: `event_type` has its type enforced, and what regex it follows (alphanumeric and underscores only, no uppercase or cap).
-
-Within the data above, we saw there were two fields, `event_type` and `event_name`, which are required and must be included in the data. Anything else is optional (like `event_timestamp`).
+Example above: `event_type` and `event_name` has its types enforced, and what regex it follows (alphanumeric and underscores only, no uppercase or cap). `event_type` and `event_name`, are also required and must be included in the data. Anything else is optional (like `event_timestamp`).
 
 `self` is what determines what your schema url within your data will be. E.g.: `iglu:com.fivestars.iglu/event_base/jsonschema/1-0-0`.
 
@@ -146,7 +91,7 @@ This covers the majority of what you'd need for Iglu schemas. Check the docs for
 
 How do I check whether or not my data is enriched or bad? And where does all this data end up?
 
-Check out the Cloudwatch Logs. Depending on where you point the collector endpoint you'll need to check different logs. (fivestarsdev vs. nerfstars vs. fivestarsprod)
+Check out [Cloudwatch](https://console.aws.amazon.com/cloudwatch/home?region=us-east-1#logs:)
 
 Using nerfstars as an example, the collector and enricher logs to `snowplow-nerfstars`, whereas the enriched and bad streams log to `/aws/lambda/nerfstars-sp-(enriched/bad)`.
 
@@ -156,11 +101,9 @@ For debugging purposes, see `/analytics-pipeline/lambda-td/lambda_td.py`. Very h
 
 When you've got a bunch of enriched events, you can view them in Treasure Data, where each field is a column and each event is a new row!
 
+
 ### Other Notes
 
 Feel free to ping Calvin when this isn't sufficient.
 
-PR: https://github.com/fivestars/server/pull/360
-
-Other clients (Android, Python, etc.) do not include as many events as JS and their setup is different. Refer to the docs for more.
-
+Check out PR: https://github.com/fivestars/server/pull/360
