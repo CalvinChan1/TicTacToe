@@ -55,6 +55,8 @@ You can find and create new schemas within the `analytics-pipeline` repo. Every 
 
 Every time you create a new custom context/schema for a self-describing JSON, you'll need a new Iglu schema that matches and enforces the data. This is where we enforce what ends up in the `enriched` vs `bad` kinesis stream, everything must be followed or it ends up in the bad stream.
 
+Take a look at this example schema:
+
 ```javascript
 {
     "$schema" : "http://iglucentral.com/schemas/com.snowplowanalytics.self-desc/schema/jsonschema/1-0-0#",
@@ -83,9 +85,9 @@ Every time you create a new custom context/schema for a self-describing JSON, yo
 }
 ```
 
-Example above: `event_type` and `event_name` has its types enforced, and what regex it follows (alphanumeric and underscores only, no uppercase or cap). `event_type` and `event_name`, are also required and must be included in the data. Anything else is optional (like `event_timestamp`).
+Example above: `properties` are all the fields in your self-describing JSON. `event_type` and `event_name` has its types enforced, and what regex it follows (alphanumeric and underscores only, no uppercase or cap). `event_type` and `event_name`, are also required and must be included in the data. Anything else is optional (like `event_timestamp`).
 
-`self` is what determines what your schema url within your data will be. E.g.: `iglu:com.fivestars.iglu/event_base/jsonschema/1-0-0`.
+`self` is what determines what your schema url within your data will be. E.g.: `iglu:com.fivestars.iglu/event_base/jsonschema/1-0-0`. `$schema` is the base schema in which all schemas inherit from. Use the same URI as the one above.
 
 This covers the majority of what you'd need for Iglu schemas. Check the docs for more details.
 
