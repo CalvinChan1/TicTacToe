@@ -12,13 +12,10 @@ There are trackers for Javascript, Python, Android, and many others. Check docs 
 If you're using the Javascript tracker, use version 2.7.0 or higher. For Python, use version 0.8.0 or higher. Self-describing events are not supported in earlier versions.
 
 ### Tracking events:
-
 #### Built-in Events:
-
 Every tracker for each platform has different support for built-in events, check docs for more.
 
 #### Self-Describing Events:
-
 Like built-in events, each platform has a different way of implementing these events, check the docs.
 
 ##### Arguments:
@@ -32,7 +29,6 @@ For the most part, you'll likely be using self-describing events.
 
 
 ### Self-describing JSONs
-
 Self-describing JSONs are where you'd add in data pertaining to a self-describing event, or a custom context.
 
 ##### The main components to this are:
